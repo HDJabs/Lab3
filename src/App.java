@@ -9,14 +9,17 @@ public class App extends Application{
     public void start(Stage primaryStage){
 
         
+        TileController cont = new TileController();
+        MatchingGamePane MGpane = new MatchingGamePane(cont);
 
-        MatchingGamePane MGpane = new MatchingGamePane();
 
+        cont.setTiles(MGpane.getTiles());
 
         Scene scene = new Scene(MGpane, 600, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
-        //primaryStage.setResizable(false);
+        //
+        primaryStage.setResizable(false);
 
         MGpane.buildTiles();
 
