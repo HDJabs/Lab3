@@ -2,35 +2,58 @@ import javafx.scene.control.Button;
 
 public class Tile extends Button{
     private char c;
-    private boolean flipped;
+    private boolean flipped, locked; //
     private int xCord, yCord;
-    public Tile(){
-        super("?");
-        System.out.println("A new <default> Tile has been created!");
-        this.c = '?';
-        flipped = false;
-        
-        setOnAction(e ->{
-            //    System.out.println("Something happened with the button"); // at " + getXcord() + "," + getYcord() + "!"
-                System.out.println("Something happened with the button at " + getXcord() + "," + getYcord() + "!");
-                if(!isFlipped()){
-                    setText("?");
-                    setFlipped(true);
-                }
-                else{
-                    setText(Character.toString(getChar()));
-                    setFlipped(false);
-                }
-                
-            });
+   
 
-    }
 
-    public Tile(char c) {
+    public Tile(char c, TileController cont) {
         super(Character.toString(c));
         System.out.println("A new Tile has been created with the Character:" + c +"!");
         this.c = c;
         flipped = false;
+        locked = false;
+        flip();
+
+        
+
+        
+        setOnAction(e ->{
+            //    System.out.println("Something happened with the button"); // at " + getXcord() + "," + getYcord() + "!"
+              
+                if(!locked) {
+                    if(cont.update(yCord, xCord))
+                        flip();
+                }
+                
+                
+                
+            });
+    }
+
+    
+
+    public void flip(){
+        if(!locked && !flipped){
+            
+            setText("?");
+            flipped = true;
+            System.out.println("condition !");
+        }
+        else{
+            setText(String.valueOf(this.c));
+            //setText("E");
+            flipped = false;
+            System.out.println("condition else");  
+        }
+    }
+
+    public void lock(){
+        this.locked = true;
+    }
+
+    public boolean isLocked(){
+        return this.locked;
     }
 
     public void setCords(int x, int y){
