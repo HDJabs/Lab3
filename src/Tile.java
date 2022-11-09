@@ -1,8 +1,10 @@
 import javafx.scene.control.Button;
+import javafx.stage.StageStyle;
 
 public class Tile extends Button{
     private char c;
-    private boolean flipped, locked; //
+    private boolean flipped; //the tile is face up
+    private boolean locked; //the tile is face up and green, having a pair
     private int xCord, yCord;
    
 
@@ -21,9 +23,8 @@ public class Tile extends Button{
         setOnAction(e ->{
             //    System.out.println("Something happened with the button"); // at " + getXcord() + "," + getYcord() + "!"
               
-                if(!locked) {
-                    if(cont.update(yCord, xCord))
-                        flip();
+                if(!locked) { //if the tile is unpaired yet
+                    cont.update(yCord, xCord);
                 }
                 
                 
@@ -34,22 +35,33 @@ public class Tile extends Button{
     
 
     public void flip(){
-        if(!locked && !flipped){
-            
-            setText("?");
-            flipped = true;
-            System.out.println("condition !");
-        }
-        else{
+        if(locked){
+            flipped=true;
             setText(String.valueOf(this.c));
+            setStyle("-fx-background-color: #00ff00;");//sets to green
+
+        }
+
+        else if(flipped){
+            setText(String.valueOf(this.c));
+            setStyle("-fx-background-color: #ff0000;");//red
+
             //setText("E");
             flipped = false;
             System.out.println("condition else");  
         }
+        else{
+            setText("?");
+            setStyle("-fx-background-color: #0000;");//set to white
+            flipped = true;
+            System.out.println("condition !");
+        }
+        
     }
 
     public void lock(){
         this.locked = true;
+        flip();
     }
 
     public boolean isLocked(){

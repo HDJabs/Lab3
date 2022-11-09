@@ -1,6 +1,5 @@
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-//master
 public class MatchingGamePane extends Pane{
     int rows = 4;
     int cols = 4;
@@ -63,7 +62,7 @@ public class MatchingGamePane extends Pane{
                     
                 });
                 */
-
+                t.setStyle("-fx-background-color: #0f0f0;");//sets to something
                 tiles[y][x] = t;
                 getChildren().add(tiles[y][x]);
 
